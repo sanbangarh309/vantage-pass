@@ -1,0 +1,91 @@
+<% include ./head %>
+<style>
+h1,.h1{
+    font-size: 2.8em !important;
+}
+</style>
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header" data-background-color="purple">
+                                    <h4 class="title"><%if (event.type == 'offer') { %>Offer Detail <% }else{ %>Event Detail<% } %></h4>
+                                    <p class="category"></p>
+                                </div>
+                                <div class="card-content">
+                                    <div id="typography">
+                                        <div class="title">
+                                           <!--  <h2>Hello</h2> -->
+                                        </div>
+                                        <div class="row">
+                                            <div class="tim-typo">
+                                                <h1>
+                                                    <span class="tim-note" style="line-height: 43px;font-size: 39px;">Name</span><%=event.name%> </h1>
+                                            </div>
+                                            <div class="tim-typo">
+                                                <h1>
+                                                    <span class="tim-note" style="line-height: 43px;font-size: 39px;">Start Date</span><%=event.start_date.toUTCString()%> </h1>
+                                            </div>
+                                            <%if (event.type=='event' && event.end_date) { %>
+                                            <div class="tim-typo">
+                                                <h1>
+                                                    <span class="tim-note" style="line-height: 43px;font-size: 39px;">End Date</span><%=event.end_date.toUTCString()%> </h1>
+                                            </div>
+                                          <% } %>
+                                            <%if ( venue && venue.venue_name !='') { %>
+                                                <div class="tim-typo">
+                                                <h1>
+                                                    <span class="tim-note" style="line-height: 43px;font-size: 39px;">Venue Name</span><%=venue.venue_name %> </h1>
+                                            </div>
+                                            <% } %>
+                                            
+                                            <%if ( event && event.category !='') { %>
+                                                <div class="tim-typo">
+                                                <h1>
+                                                    <span class="tim-note" style="line-height: 43px;font-size: 39px;">Category</span><%=event.category %> </h1>
+                                            </div>
+                                            <% } %>
+
+                                            <div class="tim-typo">
+                                                <h1>
+                                                    <span class="tim-note" style="line-height: 43px;font-size: 39px;">Status</span><%=event.status%> </h1>
+                                            </div> 
+                                            <%if (event.type == 'offer' && event.activity_type) { %>
+                                            <div class="tim-typo">
+                                                <h1>
+                                                    <span class="tim-note" style="line-height: 214px;font-size: 39px;">Activity Type</span>
+                                                    <% Object.keys(event.activity_type).forEach(function(key){ %>
+                                                    <ul class="topnav">
+                                                      <li><%=key%>
+                                                        <ul>
+                                                          <li>Offer Value:- <%=event.activity_type[key].offer_value%></li>
+                                                          <li>Dress Code:- <%=event.activity_type[key].dress_code%></li>
+                                                          <li>Details:- <%=event.activity_type[key].details%></li>
+                                                        </ul>
+                                                      </li>
+                                                    </ul>
+                                                    <% }); %></h1>
+                                            </div>
+                                            <% } %>
+                                            <%if (event.spots) { %>
+                                            <div class="tim-typo">
+                                                <h1>
+                                                    <span class="tim-note" style="line-height: 43px;font-size: 39px;">Spots</span><%=event.spots%> </h1>
+                                            </div>
+                                            <% } %>
+                                            <%if (event.image) { %>
+                                            <div class="tim-typo">
+                                                <h1>
+                                                    <span class="tim-note" style="line-height: 43px;font-size: 39px;">Image</span> <img src="<%=event.image%>" alt="Smiley face" style="width:12%"></h1>
+                                            </div>
+                                          <% } %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           <% include ./footer %>

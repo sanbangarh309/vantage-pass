@@ -1,0 +1,174 @@
+<div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="orange">
+                                    <i class="material-icons">content_copy</i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">Buisness</p>
+                                    <h3 class="title"><%= user_count %>
+                                        <!-- <small>GB</small> -->
+                                    </h3>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <!-- <i class="material-icons text-danger">warning</i>
+                                        <a href="#pablo">Get More Space...</a> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="green">
+                                    <i class="material-icons">Models</i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">Models</p>
+                                    <h3 class="title"><%= model_count  %></h3>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <!-- <i class="material-icons">date_range</i> Last 24 Hours -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="red">
+                                    <i class="material-icons">total_offers</i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">Total Offers</p>
+                                    <h3 class="title"><%= offer_count %></h3>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <!-- <i class="material-icons">local_offer</i> Tracked from Github -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="blue">
+                                    <i class="fa fa-twitter"></i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">Total Events</p>
+                                    <h3 class="title"><%= event_count %></h3>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <!-- <i class="material-icons">update</i> Just Updated -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12">
+                            <div class="card card-nav-tabs">
+                                <div class="card-header" data-background-color="purple">
+                                    <div class="nav-tabs-navigation">
+                                        <div class="nav-tabs-wrapper">
+                                            <span class="nav-tabs-title">Tasks:</span>
+                                            <ul class="nav nav-tabs" data-tabs="tabs">
+                                                <li class="active">
+                                                    <a href="#profile" data-toggle="tab">
+                                                        <i class="material-icons">bug_report</i> Event Received
+                                                        <div class="ripple-container"></div>
+                                                    </a>
+                                                </li>
+                                                <li class="">
+                                                    <a href="#settings" data-toggle="tab">
+                                                        <i class="material-icons">cloud</i> New Offers
+                                                        <div class="ripple-container"></div>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-content">
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="profile">
+                                            <table class="table">
+                                                <tbody>
+                                                <% events.forEach(function(events) { %>
+                                        <tr>
+                                                        <td><%= events.name %></td>
+                                                        <td class="td-actions text-right">
+                                                            <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
+                                                                <i class="material-icons">edit</i>
+                                                            </button>
+                                                            <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+                                                                <i class="material-icons">close</i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+    <% }); %>
+                                                   
+                                                    
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="tab-pane" id="settings">
+                                            <table class="table">
+                                                <tbody>
+                                                <% offers.forEach(function(offers) { %>
+                                                    <tr>
+                                                        <td><%= offers.name %></td>
+                                                        <td class="td-actions text-right">
+                                                            <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
+                                                                <i class="material-icons">edit</i>
+                                                            </button>
+                                                            <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+                                                                <i class="material-icons">close</i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                     <% }); %>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <div class="card">
+                                <div class="card-header" data-background-color="orange">
+                                    <h4 class="title">New Venues</h4>  
+                                </div>
+                                <div class="card-content table-responsive">
+                                    <table class="table table-hover" id="tab_venues">
+                                        <thead class="text-warning">
+                                            <th>Image</th>
+                                            <th>Name</th>
+                                            <th>Country</th>
+                                            <th>City</th>
+                                            <th>Actions</th>
+                                        </thead>
+                                        <tbody>
+                                        <% venues.forEach(function(venues) { %>
+                                        <tr>
+                                                <td> <img src="<%= venues.venue_image %>" class="img-rounded" style="width: 54%;" alt=""></td>
+                                                <td><%= venues.venue_name %></td>
+                                                <td><%= venues.country %></td>
+                                                <td><%= venues.city %></td>
+                                                <td><a class="btn san_show_details btn-info btn-sm" target="_blank" href="/admin/venue_detail?venue_id=<%= venues._id %>">View Detail</a></td>
+                                            </tr>
+    <% }); %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         

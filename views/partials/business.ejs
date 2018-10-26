@@ -1,0 +1,447 @@
+<% include ./head %>
+<style>
+#san_data_table td {
+  width: 200px;
+  height: 100%
+}
+#san_data_table td a {
+  display: block;
+  height:100%;
+  width:100%;
+}
+</style>
+
+<div class="modal fade" id="del_reason" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Enter Reason</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="/admin/approve_bus" method="post">
+      <div class="modal-body">                             
+         <input type="hidden" name="status" value="2" >
+         <input type="hidden" id="del_user_id" value="" name="business_id">
+         <textarea rows="4" cols="50" placeholder="Enter Reason.." id="entered_text">
+         </textarea> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" id = "" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="add_buisness" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add Business</h4>
+      </div>
+      <div class="modal-body">
+        <form action="/api/auth/register" method="post" enctype="multipart/form-data" id="add_business_form">
+        <div class="row">
+        <input type="hidden" name="add_from_admin" value="1">
+            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Name </label>
+                                                   <input type="text" class="form-control" name="name" id="business_name" value="">
+                                                </div>
+                                            </div>
+                        <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Business Email</label>
+                                                   <input type="text" class="form-control" name="business_email" id="business_email" value="">
+                                                </div>
+                                            </div>  
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Website</label>
+                                                   <input type="text" class="form-control" name="website" value="">
+                                                </div>
+                                            </div>         
+                                                  
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                     <select class="form-control" name="country" id="san_sel_cntry">
+              <option value="">Select Country</option>
+            <% countries.forEach(function(countrieslist) { %>
+                                                    <option value="<%= countrieslist.name %>"><%= countrieslist.name %></option>
+                                                    <% }); %>
+                                                  </select>
+                                                </div>
+                                            </div>
+                        <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label citiesss">City</label>
+                                                  <select class="form-control san_cities" id="san_cities" data-id="" name="city">
+                                                  <option value="">Select Cities</option>
+                                                </select>
+                                                </div>
+                                            </div>  
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Facebook Url</label>
+                                                   <input type="text" class="form-control" name="facebook_url" value="">
+                                                </div>
+                                            </div>         
+                                                  
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Instagram </label>
+                                                   <input type="text" class="form-control" name="instagram" value="">
+                                                </div>
+                                            </div>
+                        <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">First Name</label>
+                                                   <input type="text" class="form-control" name="first_name" id="first_name" value="">
+                                                </div>
+                                            </div>  
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Last Name</label>
+                                                   <input type="text" class="form-control" name="last_name" value="">
+                                                </div>
+                                            </div>         
+                                                  
+        </div>
+                                         <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Personal Email</label>
+                                                   <input type="text" class=" form-control" name="personal_email" value="">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Phone No</label>
+                                                    <input type="text" class="form-control" name="phone_no" value="">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <input type="file" class="form-control" name="profile_image" value="">
+                                                </div>
+                                            </div>
+                                        
+                                        </div>
+            <button type="submit" class="btn btn-primary pull-left">Save Business</button>                                
+        </form>
+    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+<%if (added) { %>
+<h2 class="well abcd" style="text-align: center;"><div class="alert alert-success">
+                            <button type="button" style="background: transparent;float: right;" class="closes" data-dismiss="alert" onclick="jQuery('.abcd').css('display', 'none');">&times;</button>
+                            Business Added Successfully.
+                        </div></h2>
+<% } %>
+<%if (update) { %>
+<h2 class="well abcd" style="text-align: center;"><div class="alert alert-success">
+                            <button type="button" style="background: transparent;float: right;" class="closes" data-dismiss="alert" onclick="jQuery('.abcd').css('display', 'none');">&times;</button>
+                            Business Updated Successfully.
+                        </div></h2>
+<% } %>
+                        <div class="col-md-12">
+                            <div class="card sannn">
+                                <div class="card-header" data-background-color="purple">
+                                    <h4 class="title">Business Users</h4>
+                                    <p class="category"><form action="/admin/delete_all" method="get"><button type="submit" class="btn btn-danger btn-sm">Delete All</button></form></p>
+                                     <div class="sandeep_ban"><h4 class="filter">Filter</h4> &nbsp&nbsp<select class="selectpicker filter_resultt">
+                                      <option value="all">Select To filter</option>
+                                      <option value="approved">Approved</option>
+                                    </select>
+                                    </div>
+                                    <div style="float:right;margin-top: -58px;margin-right: 44px;"><button type="submit" data-toggle="modal" data-target="#add_buisness" class="btn btn-info btn-lg">Add Business</button></div>
+                                </div>
+                                <div class="card-content table-responsive">
+                                    <table class="table table-hover" id="san_data_table">
+                                        <thead class="text-primary">
+                                            <th>Name</th>
+                                            <th>Country</th>
+                                            <th>City</th>
+                                            <th>Email</th>
+                                            <th>Phone No</th>
+                                            <th>Venue</th>
+                                            <th>Actions</th>
+                                        </thead>
+                                        <tbody>
+                                        <% users.forEach(function(users) { %>
+                                            <tr>
+                                                 <td><%= users.first_name %></td>
+                                                <td><%= users.country %></td>
+                                                <td><select class="selectpicker san_status" data-id="<%= users._id %>" name="city">
+                                                <% users.cities.forEach(function(city) { %>
+                                                    <option <%if(users.city ==city){%> selected="selected" <% } %> value="<%= city %>"><%= city %></option>
+                                                    <% }); %>
+                                                </select></td>
+                                                <td><%= users.business_email %></td>
+                                                <td><%= users.phone_no %></td>
+                                                 <td><%= users.venue %></td>
+                                                <td>
+                                                 <form action="/admin/approve_bus" method="post">
+                                                 <input type="hidden" name="business_id" value="<%= users._id %>">
+                                                 <input type="hidden" name="status" <%if (users.status=='1') { %> value="0" <% }else{ %> value="1" <% } %> >
+                                                    
+<%if (users.status!='1' && users.status!='2') { %> 
+<button type="button" data-id="<%= users._id %>" class="btn btn-danger btn-sm decline_user" style="float: left;width: 40%;padding: 5px;">Decline</button>
+<button type="submit" style="width: 40%;padding: 5px;" class="btn btn-success btn-sm">Accept</button>
+                                                    
+                                                    <% } %>
+                                                    <%if (users.status=='2') { %>
+                                                    <button type="submit" class="btn btn-primary btn-sm">Declined</button>
+                                                    <% } %>
+                                                    <%if (users.status=='1') { %>
+                                                    <button type="submit" class="btn btn-success btn-sm">Active</button>
+                                                    <% } %>
+                                                    </form>
+                                                <form action="/admin/delete" method="post" id="delete_user_<%= users._id %>">
+                                                    <input type="hidden" name="business_id" value="<%= users._id %>">
+                                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                                    </form><button type="button" data-toggle="modal" data-target="#edit_buisness<%= users._id %>" class="btn btn-info btn-sm">Edit</button></td>
+                                            </tr>
+<div id="edit_buisness<%= users._id %>" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit Business</h4>
+      </div>
+      <div class="modal-body">
+        <form action="/admin/bupdate" method="post" enctype="multipart/form-data">
+        <div class="row">
+        <input type="hidden" name="user_id" value="<%= users._id %>">
+        <input type="hidden" name="old_image" value="<%= users.profile_image %>">
+            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Name </label>
+                                                   <input type="text" class="form-control" name="business_name" value="<%= users.business_name %>">
+                                                </div>
+                                            </div>
+                        <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Business Email</label>
+                                                   <input type="text" class="form-control" name="business_email" value="<%= users.business_email %>">
+                                                </div>
+                                            </div>  
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Website</label>
+                                                   <input type="text" class="form-control" name="website" value="<%= users.website %>">
+                                                </div>
+                                            </div>         
+                                                  
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                <select class="form-control" name="country" id="san_sel_cntry">
+              <option value="">Select Country</option>
+            <% countries.forEach(function(countrieslist) { %>
+                                                    <option <%if(users.country ==countrieslist.name){%> selected="selected" <% } %>value="<%= countrieslist.name %>"><%= countrieslist.name %></option>
+                                                    <% }); %>
+                                                  </select>
+                                                </div>
+                                            </div>
+                        <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label citiesss">City</label>
+                                                   <select class="san_cities" data-id="" name="city">
+                                                <% users.cities.forEach(function(city) { %>
+                                                    <option <%if(users.city ==city){%> selected="selected" <% } %> value="<%= city %>"><%= city %></option>
+                                                    <% }); %>
+                                                </select>
+                                                </div>
+                                            </div>  
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Facebook Url</label>
+                                                   <input type="text" class="form-control" name="facebook_url" value="<%= users.facebook_url %>">
+                                                </div>
+                                            </div>         
+                                                  
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Instagram </label>
+                                                   <input type="text" class="form-control" name="instagram" value="<%= users.instagram %>">
+                                                </div>
+                                            </div>
+                        <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">First Name</label>
+                                                   <input type="text" class="form-control" name="first_name" value="<%= users.first_name %>">
+                                                </div>
+                                            </div>  
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Last Name</label>
+                                                   <input type="text" class="form-control" name="last_name" value="<%= users.last_name %>">
+                                                </div>
+                                            </div>         
+                                                  
+        </div>
+                                         <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Personal Email</label>
+                                                   <input type="text" class=" form-control" name="personal_email" value="<%= users.personal_email %>">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Phone No</label>
+                                                    <input type="text" class="form-control" name="phone_no" value="<%= users.phone_no %>">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <input type="file" class="form-control" name="profile_image" value="">
+                                                </div>
+                                            </div>
+                                        </div>
+            <button type="submit" class="btn btn-primary pull-left">Save Business</button>                                
+        </form>
+    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+                                           <% }); %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           <% include ./footer %>
+
+<script>
+  $(document).ready(function() {
+    $('#san_data_table').DataTable( {
+      "lengthMenu": [6, 10, 25, 50, 100],
+      "pageLength": 6,
+      "order": []
+    } );
+    $( ".filter_resultt" ).on( "change", function() { 
+        //$("#san_loading").show();
+        var types = $(this).val();
+        if(types == 'all'){
+            location.reload();
+        }else{
+            if(types){
+                $.ajax({
+                    type:'POST',
+                    url:'http://work4brands.com:4200/admin/filter_resultt',
+                    data: { type:types},
+                    dataType:'json'
+                }).done(function(data){
+                    console.log(data);
+                }).fail(function(jqXHR,textStatus, err){
+                    console.log(textStatus);
+                });
+            }
+        }
+    });
+
+    $( ".decline_user" ).on( "click", function() { 
+        var id = $(this).data('id');
+        $('<input>').attr({
+            type: 'hidden',
+            name: 'decline',
+            id:'decline_text',
+            value: ''
+        }).appendTo('#delete_user_'+id);
+        $('#del_user_id').val(id);
+        $('#del_reason').modal();
+    });
+
+    $( "#submit_reason" ).on( "click", function() { 
+        var id = $('#del_user_id').val();
+        var entered_text = $('#entered_text').val();
+        $('#decline_text').val(entered_text); 
+        //$('#delete_user_'+id).submit();
+    });
+
+    $( "#san_sel_cntry" ).on( "change", function(e) {
+      e.preventDefault();
+      $.ajax({
+            type:'POST',
+            url:'http://work4brands.com:4200/admin/change_cities',
+            data: { country:$(this).val()},
+            dataType:'json'
+        }).done(function(data){
+        var html = '<option value="">Select Cities</option>';
+        $.each(data, function( index, value ) {
+          html = html+'<option value="'+value+'">'+value+'</option>';
+        });
+        //$(".citiesss").after(html);
+        $(".san_cities").html(html);
+            console.log(data);
+        }).fail(function(jqXHR,textStatus, err){
+            console.log(textStatus);
+        });
+    });
+
+    $( ".san_status" ).on( "change", function() {
+        $.ajax({
+            type:'POST',
+            url:'http://work4brands.com:4200/admin/updateCity',
+            data: { id:$(this).data('id'), city:$(this).val() },
+            dataType:'json'
+        }).done(function(data){
+            console.log(data);
+        }).fail(function(jqXHR,textStatus, err){
+            console.log(textStatus);
+        });
+    });
+    var mandatory = ['business_name','business_email','san_sel_cntry','san_cities','first_name'];
+    $(document).on('submit','form#add_business_form',function(){
+        var err = 0
+        $.each(mandatory, function( index, value ) {
+          if(!$('#'+value).val()){
+            err = 1;
+          }
+        });
+        if(err ==0){
+          return true;
+        }else{
+         alert('Some Fields Missing');
+         return false;
+        }
+    });
+  });
+</script>

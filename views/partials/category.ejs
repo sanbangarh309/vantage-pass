@@ -1,0 +1,191 @@
+<% include ./head %>
+<style>
+  .entry:not(:first-of-type)
+  {
+      margin-top: 10px;
+  }
+</style>
+<div id="add_category" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add Category</h4>
+      </div>
+      <div class="modal-body">
+        <form action="/admin/add_category" method="post" enctype="multipart/form-data">
+        <div class="row">
+        <input type="hidden" name="add_from_admin" value="1">
+            <div class="col-md-6">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label"> Category Name </label>
+                                                   <input type="text" class="form-control" name="name" value="">
+                                                </div>
+                                            </div>
+        </div>
+               <div class="row">
+                                        </div>
+                                        <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="form-group label-floating">
+                                                    <label class="control-label">Details</label>
+                                                    <textarea rows="4" class="form-control" name="details" cols="50"></textarea> 
+                                            </div>
+                                        </div>   
+                                        </div>
+            <button type="submit" class="btn btn-primary pull-left">Save Category</button>                                
+        </form>
+    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                    <%if (added) { %>
+<h2 class="well abcd" style="text-align: center;"><div class="alert alert-success">
+                            <button type="button" style="background: transparent;float: right;" class="closes" data-dismiss="alert" onclick="jQuery('.abcd').css('display', 'none');">&times;</button>
+                            category Added Successfully.
+                        </div></h2>
+<% } %>
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header" data-background-color="purple">
+                                    <h4 class="title">Categories</h4>
+                                    <p class="category"><form action="/admin/delete_all_categories" method="get"><button type="submit" class="btn btn-danger btn-sm">Delete All</button></form></p>
+                                    <div style="float:right;margin-top: -80px;"><button type="submit" data-toggle="modal" data-target="#add_category" class="btn btn-info btn-lg">Add category</button></div>
+                                </div>
+                                <div class="card-content table-responsive">
+                                    <table class="table table-hover" id="category_data">
+                                        <thead class="text-primary">
+                                            <th>Id</th>
+                                            <th>Category Name</th>
+                                            <th>Actions</th>
+                                        </thead>
+                                        <tbody>
+                                        <% categories.forEach(function(categories) { %>
+                                            <tr>
+                                            <td><%= categories._id %></td>
+                                            <td><%= categories.title %></td> 
+                                               <td> <form action="/admin/delete_category" method="post">
+                                                    <input type="hidden" name="category_id" value="<%= categories._id %>">
+                                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                                    </form>
+                                                    </td>
+                                            </tr>
+                                           <% }); %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           <% include ./footer %>
+<script>
+  $(document).ready(function() {
+  $('#category_data').DataTable( {
+      "lengthMenu": [6, 10, 25, 50, 100],
+      "pageLength": 6
+    } );
+  $( ".datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
+    $( ".san_status" ).on( "change", function() {
+      $.ajax({
+            type:'POST',
+            url:'http://work4brands.com:4200/admin/changeStatus',
+            data: { category_id:$(this).data('id'), status:$(this).val() },
+            dataType:'json'
+        }).done(function(data){
+            console.log(data);
+        }).fail(function(jqXHR,textStatus, err){
+            console.log(textStatus);
+        });
+    });
+
+    $( ".san_show_detail" ).on( "click", function() {
+    $('ul#san_listss').empty();
+    var idsss = $(this).data('id').split('san@#');
+      $.ajax({
+            type:'POST',
+            url:'http://work4brands.com:2200/admin/get_models',
+            data: { booking_model_ids:idsss[0],checkins_model_ids:idsss[1]},
+            dataType:'json'
+        }).done(function(data){
+         var bookings_items = '';
+         var checkins_items = '';
+         $.each(data.bookings, function(i, item) {
+                bookings_items = bookings_items+'<li class="list-group-item"><a href="http://work4brands.com:2200/admin/model_detail?model_id=' + item._id + '" target="_blank">' + item.first_name + '</a></li>';
+         }); 
+         $.each(data.checkins, function(i, item) {
+                checkins_items = checkins_items+'<li class="list-group-item"><a href="http://work4brands.com:2200/admin/model_detail?model_id=' + item._id + '" target="_blank">' + item.first_name + '</a></li>';
+         }); 
+         if(bookings_items){
+            $('ul#san_listss').append(bookings_items);
+         }else if(data == 'err'){
+            $('ul#san_listss').append('No Bookings!');
+         }
+         if(checkins_items){
+            $('ul#san_listsss').append(checkins_items);
+         }else if(data == 'err'){
+            $('ul#san_listsss').append('No Checkins!');
+         }
+        }).fail(function(jqXHR,textStatus, err){
+            console.log(textStatus);
+            $('ul#san_listss').append('No Bookings!');
+            $('ul#san_listsss').append('No Checkins!');
+        });
+    });
+  });
+
+  $(function()
+  {
+      $(document).on('click', '.btn-add', function(e)
+      {  
+          e.prcategoryDefault();
+
+          var controlForm = $('.controls .formmm:first'),
+              currentEntry = $(this).parents('.entry:first'),
+              newEntry = $(currentEntry.clone()).appendTo(controlForm);
+
+          newEntry.find('input').val('');
+          controlForm.find('.entry:not(:last) .btn-add')
+              .removeClass('btn-add').addClass('btn-remove')
+              .removeClass('btn-success').addClass('btn-danger')
+              .html('<span class="glyphicon glyphicon-minus"></span>');
+      }).on('click', '.btn-remove', function(e)
+      {
+      $(this).parents('.entry:first').remove();
+
+      e.prcategoryDefault();
+      return false;
+    });
+
+    $( "#change_business" ).on( "change", function(e) {
+    e.prcategoryDefault();
+      $.ajax({
+            type:'GET',
+            url:'http://work4brands.com:4200/categories/venues',
+            data: { business_id:$(this).val()},
+            dataType:'json'
+        }).done(function(data){
+        var html = '<option value="">Select Venues</option>';
+        $.each(data, function( index, value ) {
+          html = html+'<option value="'+value._id+'">'+value.venue_name+'</option>';
+        });
+        $("#venue_info").html(html);
+            console.log(data);
+        }).fail(function(jqXHR,textStatus, err){
+            console.log(textStatus);
+        });
+    });
+    
+  });
+</script>

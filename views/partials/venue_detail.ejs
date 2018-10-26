@@ -1,0 +1,81 @@
+<% include ./head %>
+<style>
+h1,.h1{
+    font-size: 2.8em !important;
+}
+</style>
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header" data-background-color="purple">
+                                    <h4 class="title">Venue Detail</h4>
+                                    <p class="category"></p>
+                                </div>
+                                <div class="card-content">
+                                    <div id="typography">
+                                        <div class="title">
+                                        </div>
+                                        <div class="row">
+                                            <div class="tim-typo">
+                                                <h1>
+                                                    <span class="tim-note" style="line-height: 43px;font-size: 39px;">Name</span><%=venue.venue_name%> </h1>
+                                            </div>
+                                            <div class="tim-typo">
+                                                <h1>
+                                                    <span class="tim-note" style="line-height: 43px;font-size: 39px;">Start Date</span><%=venue.created_date%> </h1>
+                                            </div>
+                                            <div class="tim-typo">
+                                                <h1>
+                                                    <span class="tim-note" style="line-height: 43px;font-size: 39px;">Address</span><%=venue.address%> </h1>
+                                            </div>
+                                            <div class="tim-typo">
+                                                <h1>
+                                                    <span class="tim-note" style="line-height: 43px;font-size: 39px;">Description</span><%=venue.description%> </h1>
+                                            </div>
+                                            <%if (venue.website) { %>
+                                            <div class="tim-typo">
+                                                <h1>
+                                                    <span class="tim-note" style="line-height: 43px;font-size: 39px;">Website</span><a href="<%=venue.website%>" target="_blank"><%=venue.website%></a></h1>
+                                            </div>
+                                            <% } %>
+                                             <%if (venue.category) { %>
+                                            <div class="tim-typo">
+                                                <h1>
+                                                    <span class="tim-note" style="line-height: 43px;font-size: 39px;">Category</span><a href="<%=venue.category%>" target="_blank"><%=venue.category%></a></h1>
+                                            </div>
+                                            <% } %>
+                                            <%if (venue.phone) { %>
+                                            <div class="tim-typo">
+                                                <h1>
+                                                    <span class="tim-note" style="line-height: 43px;font-size: 39px;">Phone</span><%=venue.phone%> </h1>
+                                            </div>
+                                            <% } %>
+                                            <%if (venue.venue_image) { %>
+                                            <div class="tim-typo">
+                                                <h1>
+                                                    <span class="tim-note" style="line-height: 43px;font-size: 39px;">Image</span> <img src="<%=venue.venue_image%>" alt="Smiley face" style="width:12%"></h1>
+                                            </div>
+                                          <% } %>
+                                          <%if (venue.country) { %>
+                                            <div class="tim-typo">
+                                                <h1>
+                                                    <span class="tim-note" style="line-height: 43px;font-size: 39px;">Country</span><%=venue.country%></h1>
+                                            </div>
+                                          <% } %>
+                                          <%if (venue.city) { %>
+                                            <div class="tim-typo">
+                                                <h1>
+                                                    <span class="tim-note" style="line-height: 43px;font-size: 39px;">City</span><%=venue.city%></h1>
+                                            </div>
+                                          <% } %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           <% include ./footer %>

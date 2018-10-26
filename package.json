@@ -1,0 +1,59 @@
+{
+  "name": "vantage",
+  "version": "1.0.0",
+  "description": "includes all functionality of vantage mobile application ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo\"Error:no test specified\" && exit 1",
+    "start": "EXPRESS_PORT=3200 nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "\\"
+  },
+  "keywords": [
+    "vantage",
+    "api"
+  ],
+  "author": "Sandeep Bangarh",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.18.3"
+  },
+  "dependencies": {
+    "assert-plus": "^1.0.0",
+    "aws-sign2": "^0.7.0",
+    "aws4": "^1.8.0",
+    "bcryptjs": "^2.4.3",
+    "bluebird": "^3.5.1",
+    "body-parser": "^1.18.2",
+    "city-timezones": "^1.0.5",
+    "countries-and-timezones": "^1.0.1",
+    "countries-cities": "0.0.11",
+    "country-reverse-geocoding": "^0.2.2",
+    "ejs": "^2.6.1",
+    "express": "^4.16.2",
+    "express-session": "^1.15.6",
+    "formidable": "^1.1.1",
+    "fs": "0.0.1-security",
+    "geodist": "^0.2.1",
+    "hawk": "^7.0.7",
+    "http": "0.0.0",
+    "json-stringify-safe": "^5.0.1",
+    "jsonwebtoken": "^8.1.1",
+    "moment": "^2.22.2",
+    "moment-timezone": "^0.5.21",
+    "mongoose": "^5.0.4",
+    "mongoose-auto-increment": "^5.0.1",
+    "multer": "^1.3.0",
+    "mysql": "^2.15.0",
+    "node-cron": "^1.2.1",
+    "node-gcm": "^1.0.2",
+    "node-geocoder": "^3.22.0",
+    "nodemailer": "^4.4.2",
+    "path": "^0.12.7",
+    "qr-image": "^3.2.0",
+    "socket.io": "^2.0.4",
+    "tough-cookie": "^2.4.3"
+  }
+}

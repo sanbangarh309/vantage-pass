@@ -1,0 +1,38 @@
+[20-Mar-2018 07:14:24 America/Chicago] PHP Fatal error:  Class 'MongoDB\Client' not found in /home/work4brands/public_html/vantage/controllers/offer.php on line 3
+[20-Mar-2018 08:19:43 America/Chicago] PHP Parse error:  syntax error, unexpected ',' in /home/work4brands/public_html/vantage/controllers/offer.php on line 10
+[21-Mar-2018 00:38:05 America/Chicago] PHP Warning:  unserialize() expects parameter 1 to be string, array given in /home/work4brands/public_html/vantage/controllers/offer.php on line 20
+[21-Mar-2018 00:50:15 America/Chicago] PHP Warning:  move_uploaded_file(./uploads/events/39386885.jpg): failed to open stream: No such file or directory in /home/work4brands/public_html/vantage/controllers/offer.php on line 25
+[21-Mar-2018 00:50:15 America/Chicago] PHP Warning:  move_uploaded_file(): Unable to move '/tmp/phpnRHvdw' to './uploads/events/39386885.jpg' in /home/work4brands/public_html/vantage/controllers/offer.php on line 25
+[21-Mar-2018 04:54:34 America/Chicago] PHP Fatal error:  Class 'Date' not found in /home/work4brands/public_html/vantage/controllers/offer.php on line 20
+[22-Mar-2018 00:39:20 America/Chicago] PHP Parse error:  syntax error, unexpected '', $activities);' (T_CONSTANT_ENCAPSED_STRING) in /home/work4brands/public_html/vantage/controllers/offer.php on line 17
+[22-Mar-2018 00:39:39 America/Chicago] PHP Parse error:  syntax error, unexpected '', $activities);' (T_CONSTANT_ENCAPSED_STRING) in /home/work4brands/public_html/vantage/controllers/offer.php on line 17
+[22-Mar-2018 00:41:00 America/Chicago] PHP Parse error:  syntax error, unexpected '', $activities);' (T_CONSTANT_ENCAPSED_STRING) in /home/work4brands/public_html/vantage/controllers/offer.php on line 17
+[28-Mar-2018 00:58:42 America/Chicago] PHP Fatal error:  Cannot use object of type MongoId as array in /home/work4brands/public_html/vantage/controllers/offer.php on line 45
+[28-Mar-2018 00:58:50 America/Chicago] PHP Fatal error:  Cannot use object of type MongoId as array in /home/work4brands/public_html/vantage/controllers/offer.php on line 45
+[28-Mar-2018 00:59:56 America/Chicago] PHP Fatal error:  Cannot use object of type MongoId as array in /home/work4brands/public_html/vantage/controllers/offer.php on line 45
+[28-Mar-2018 01:00:28 America/Chicago] PHP Fatal error:  Cannot use object of type MongoId as array in /home/work4brands/public_html/vantage/controllers/offer.php on line 45
+[28-Mar-2018 01:03:01 America/Chicago] PHP Fatal error:  Cannot use object of type MongoId as array in /home/work4brands/public_html/vantage/controllers/offer.php on line 45
+[28-Mar-2018 01:05:21 America/Chicago] PHP Fatal error:  Cannot use object of type MongoId as array in /home/work4brands/public_html/vantage/controllers/offer.php on line 45
+[28-Mar-2018 04:11:38 America/Chicago] PHP Parse error:  syntax error, unexpected ')' in /home/work4brands/public_html/vantage/controllers/offer.php on line 21
+[28-Mar-2018 04:21:33 America/Chicago] PHP Warning:  strtotime() expects parameter 1 to be string, object given in /home/work4brands/public_html/vantage/controllers/offer.php on line 18
+[28-Mar-2018 04:22:11 America/Chicago] PHP Warning:  strtotime() expects parameter 1 to be string, object given in /home/work4brands/public_html/vantage/controllers/offer.php on line 18
+[28-Mar-2018 04:22:27 America/Chicago] PHP Warning:  strtotime() expects parameter 1 to be string, object given in /home/work4brands/public_html/vantage/controllers/offer.php on line 18
+[28-Mar-2018 04:22:29 America/Chicago] PHP Warning:  strtotime() expects parameter 1 to be string, object given in /home/work4brands/public_html/vantage/controllers/offer.php on line 18
+[28-Mar-2018 04:22:33 America/Chicago] PHP Warning:  strtotime() expects parameter 1 to be string, object given in /home/work4brands/public_html/vantage/controllers/offer.php on line 18
+[30-Mar-2018 07:24:56 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home/work4brands/public_html/vantage/controllers/offer.php on line 5
+[30-Mar-2018 07:56:36 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home/work4brands/public_html/vantage/controllers/offer.php on line 5
+[30-Mar-2018 07:59:37 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home/work4brands/public_html/vantage/controllers/offer.php on line 5
+[30-Mar-2018 07:59:48 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home/work4brands/public_html/vantage/controllers/offer.php on line 5
+[30-Mar-2018 08:00:03 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home/work4brands/public_html/vantage/controllers/offer.php on line 5
+[30-Mar-2018 08:02:14 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home/work4brands/public_html/vantage/controllers/offer.php on line 5
+[30-Mar-2018 08:06:26 America/Chicago] PHP Fatal error:  Cannot use isset() on the result of an expression (you can use "null !== expression" instead) in /home/work4brands/public_html/vantage/controllers/offer.php on line 5
+[01-Apr-2018 23:25:48 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home/work4brands/public_html/vantage/controllers/offer.php on line 6
+[02-Apr-2018 04:33:20 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home/work4brands/public_html/vantage/controllers/offer.php on line 6
+[02-Apr-2018 04:33:49 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home/work4brands/public_html/vantage/controllers/offer.php on line 6
+[21-Aug-2018 07:37:26 America/Chicago] PHP Warning:  MongoDate::__construct() expects parameter 1 to be long, string given in /home/work4brands/public_html/vantage/controllers/offer.php on line 25
+[21-Aug-2018 07:38:54 America/Chicago] PHP Warning:  MongoDate::__construct() expects parameter 1 to be long, object given in /home/work4brands/public_html/vantage/controllers/offer.php on line 25
+[21-Aug-2018 07:47:10 America/Chicago] PHP Warning:  strtotime() expects parameter 1 to be string, object given in /home/work4brands/public_html/vantage/controllers/offer.php on line 29
+[21-Aug-2018 07:47:10 America/Chicago] PHP Warning:  strtotime() expects parameter 1 to be string, object given in /home/work4brands/public_html/vantage/controllers/offer.php on line 29
+[21-Aug-2018 07:48:09 America/Chicago] PHP Warning:  strtotime() expects parameter 1 to be string, object given in /home/work4brands/public_html/vantage/controllers/offer.php on line 29
+[21-Aug-2018 07:48:09 America/Chicago] PHP Warning:  strtotime() expects parameter 1 to be string, object given in /home/work4brands/public_html/vantage/controllers/offer.php on line 29
+[21-Aug-2018 07:50:33 America/Chicago] PHP Parse error:  syntax error, unexpected ';' in /home/work4brands/public_html/vantage/controllers/offer.php on line 31

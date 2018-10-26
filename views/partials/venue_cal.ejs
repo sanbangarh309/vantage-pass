@@ -1,0 +1,40 @@
+<% include ./head %>
+<link rel="stylesheet" href="../assets/css/san.css">
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+          <div id="scheduler_here" class="dhx_cal_container" style='width:100%; height:100%;position: absolute !important;overflow: visible !important;'>
+        <div class="dhx_cal_navline">
+            <div class="dhx_cal_prev_button">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-chevron-left" aria-hidden="true"></i>
+</div>
+            <div class="dhx_cal_next_button">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i>
+</div>
+            <div class="dhx_cal_today_button"></div>
+            <div class="dhx_cal_date" style="color: green;"></div>
+            <!-- <div class="dhx_cal_tab" name="day_tab"></div>
+            <div class="dhx_cal_tab" name="week_tab"></div>
+            <div class="dhx_cal_tab" name="month_tab"></div> -->
+        </div>
+        <div class="dhx_cal_header">
+        </div>
+        <div class="dhx_cal_data">
+        </div>
+    </div>  
+        </div>
+    </div>
+</div>
+    
+    <% include ./footer %>
+    <script src="../assets/js/san.js" ></script>
+<script type="text/javascript" charset="utf-8">
+    $(function(){
+        init('<%=venue_id%>');
+    });
+    function init(id) {
+        scheduler.init('scheduler_here',new Date(),"month");
+        scheduler.config.xml_date="%Y-%m-%d %H:%i";
+
+        scheduler.templates.xml_date = function(value){ return new Date(value); };
+        scheduler.load("/data?id="+id, "json");
+    }
+</script>

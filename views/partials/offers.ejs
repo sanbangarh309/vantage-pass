@@ -1,0 +1,418 @@
+<% include ./head %>
+<style>
+.ui-timepicker-container {
+    z-index: 10900 !important;
+}
+</style>
+<div id="add_event" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add Offer</h4>
+      </div>
+      <div class="modal-body">
+        <form action="http://work4brands.com/vantage/controllers/offer.php" method="post" enctype="multipart/form-data" id="add_offer_form">
+        <input type="hidden" name="action" value="add_offer">
+        <input type="hidden" name="add_from_admin" value="1">
+        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group label-floating">
+                                                    <select class="form-control" name="business_id" id="change_business">
+                                                     <option value="">Select Business User</option>
+                                                     <% users.forEach(function(user) { %>
+                                                    <option value="<%= user._id %>"><%= user.first_name %></option>
+                                                    <% }); %>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group label-floating">
+                                                    <select class="form-control" name="venue_id" id="venue_info">
+                                                    <option value="">Select Venue</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                           
+                                        </div>
+        <div class="row">
+           <!-- <div class="col-md-6">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Name </label>
+                                                   <input type="text" class="form-control" name="name" id="offer_name" value="">
+                                                </div> 
+                                            </div>   -->       
+                                            <div class="col-md-6">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Start Date</label>
+                                                   <input type="text" class="datepicker form-control" name="start_date" id="start_date" value="">
+                                                </div>
+                                            </div>         
+        </div>
+               
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                               <div class="form-group label-floating">
+                                                    <label class="control-label">Event Image</label>
+                                                    <input type="file" name="offer_image" accept="image/*">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group label-floating">
+                                                    <select class="form-control" name="category" id="change_category">
+                                                     <option value="">Select Category</option>
+                                                     <% categories.forEach(function(category) { %>
+                                                    <option value="<%= category.title %>"><%= category.title %></option>
+                                                    <% }); %>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col-md-12">
+                                              <div class="form-group controls"> 
+                                              <div class="formmm">
+                                                  <div class="entry input-group col-xs-12">
+                                                  <div class="col-xs-4">
+                                                    <input class="form-control activity_type" id="activity_name" name="activity_type[]" type="text" placeholder="Type Activity name.." />
+                                                      <input class="form-control offer_value" name="offer_value[]" type="text" placeholder="Type offervalue.." />
+                                                  </div>
+                                                  <div class="col-xs-4">
+                                                      <input class="form-control dress_code" name="dress_code[]" type="text" id="dress_code" placeholder="Type Dresscode.." />
+                                                      <input class="form-control etailss" name="details[]" type="text" placeholder="Type details.." />
+                                                  </div>
+                                                  <div class="col-xs-4 " id="datepair">
+                                                      <input class="form-control time start" id="start_time" name="start_time[]" type="text" placeholder="Start Time.." />
+                                                      <input class="form-control time end" name="end_time[]" type="text" id="end_time" placeholder="End Time.." />
+                                                  </div>
+                                                    <span class="input-group-btn">
+                                                          <button class="btn btn-success btn-add" type="button">
+                                                              <span class="glyphicon glyphicon-plus"></span>
+                                                          </button>
+                                                      </span>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          </div>
+                                        </div>
+            <button type="submit" class="btn btn-primary pull-left">Save Event</button>                                
+        </form>
+    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                    <%if (added) { %>
+<h2 class="well abcd" style="text-align: center;"><div class="alert alert-success">
+                            <button type="button" style="background: transparent;float: right;" class="closes" data-dismiss="alert" onclick="jQuery('.abcd').css('display', 'none');">&times;</button>
+                            Offer Added Successfully.
+                        </div></h2>
+<% } %>
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header" data-background-color="purple">
+                                    <h4 class="title">Offers</h4>
+                                    <p class="category"><form action="/admin/delete_all_events" method="get"><button type="submit" class="btn btn-danger btn-sm">Delete All</button></form></p>
+                                     <div style="float:right;margin-top: -80px;"><button type="submit" data-toggle="modal" data-target="#add_event" class="btn btn-info btn-lg">Add Offer</button></div>
+                                </div>
+                                <div class="card-content table-responsive">
+                                    <table class="table table-hover" id="offer_data">
+                                        <thead class="text-primary">
+                                            <th>Buisness Name</th>
+                                            <th>Start Date</th>
+                                            <th>Bookings</th>
+                                            <th>Checkins</th>
+                                            <th>Views</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </thead>
+                                        <tbody>
+                                        <% offers.forEach(function(offers) { %>
+                                            <tr>
+                                                 <td><%= offers.name %></td>
+                                                <td><%= offers.start_date %></td>
+                                                <td><%= offers.reservation_count %></td>
+                                                <td><%= offers.checkins_count %></td>
+                                                <td><%= offers.views %></td>
+                                                <td><select class="san_status selectpicker" data-id="<%= offers._id %>">
+                                                <option <%if (offers.status == 'AVAILABLE SOON') { %> selected="selected" <% } %> value="AVAILABLE SOON">AVAILABLE SOON</option>
+                                                  <option <%if (offers.status == 'AVAILABLE') { %> selected="selected" <% } %> value="AVAILABLE">AVAILABLE</option>
+                                                  <option <%if (offers.status == 'NOT AVAILABLE') { %> selected="selected" <% } %> value="NOT AVAILABLE">NOT AVAILABLE</option>
+                                                  <option <%if (offers.status == 'SOLD OUT') { %> selected="selected" <% } %> value="SOLD OUT">SOLD OUT</option>
+                                                </select></td>
+                                                <td> 
+
+                                                <form action="/admin/delete_event" method="post">
+                                                    <input type="hidden" name="event_id" value="<%= offers._id %>">
+                                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+<a class="btn san_show_details btn-info btn-sm" data-toggle="modal" target="_blank" href="/admin/event_detail?event_id=<%= offers._id %>">View Detail</a>
+                                            
+                                                    </form>
+                                                    
+                                                    <button type="button" data-id="<%= offers.booking_model_ids %>san@#<%= offers.checkins_model_ids %>" class="btn san_show_detail btn-info btn-sm" data-toggle="modal" id="#<%= offers._id %>">View Booking</button>
+                                                    
+                                                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#edit<%= offers._id %>">Edit Booking</button>
+                                                    </td>
+                                            </tr>
+
+                                            <div id="<%= offers._id %>" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">View Bookings</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+             <div class="col-md-12">
+                <div class="card card-plain">
+                    <div class="card-content table-responsive">
+                        <div class="col-xs-6">
+                        <label>Bookings</label>
+                             <ul class="list-group" id="san_listss">
+</ul> 
+                        </div>
+                        <div class="col-xs-6">
+                        <label>Checkins</label>
+ <ul class="list-group" id = "san_listsss">
+  
+</ul> 
+                        </div>
+                    </div>
+                </div>
+             </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="edit<%= offers._id %>" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit Booking</h4>
+      </div>
+      <div class="modal-body">
+        <form action="/admin/edit_booking?type=offer" method="post">
+        <input type="hidden" name="event_id" value="<%= offers._id %>">
+               <div class="row">
+                                            <div class="col-md-5">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Enter Day Limit</label>
+                                                    <input type="text" class="form-control" name="day_limit" value="<%= offers.day_limit %>">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Enter Week Limit</label>
+                                                    <input type="text" class="form-control" name="week_limit" value="<%= offers.week_limit %>">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Available Hours</label>
+                                                    <input type="text" class="form-control" name="available_hrs" value="<%= offers.available_hrs %>">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Cancel Hours</label>
+                                                    <input type="text" class="form-control" name="cncl_hrs" value="<%= offers.cncl_hrs %>">
+                                                </div>
+                                            </div>
+                                           
+                                        </div>
+            <button type="submit" class="btn btn-primary pull-left">Update Offer</button>                                
+        </form>
+    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+                                           <% }); %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           <% include ./footer %>
+<script>
+  $(document).ready(function() {
+
+  $('#datepair .start').timepicker({
+        'showDuration': true,
+        timeFormat: 'h:mm p',
+        interval: 30,
+        defaultTime: '6:00 AM',
+        dynamic: false,
+        dropdown: true,
+        scrollbar: true
+    });
+    $('#datepair .end').timepicker({
+        'showDuration': true,
+        timeFormat: 'h:mm p',
+        interval: 30,
+        defaultTime: '8:00 PM',
+        dynamic: false,
+        dropdown: true,
+        scrollbar: true
+    });
+
+  $('#offer_data').DataTable( {
+      "lengthMenu": [6, 10, 25, 50, 100],
+      "pageLength": 6
+    } );
+  $( ".datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
+    $( ".san_status" ).on( "change", function() {
+      $.ajax({
+            type:'POST',
+            url:'http://work4brands.com:4200/admin/changeStatus',
+            data: { event_id:$(this).data('id'), status:$(this).val() },
+            dataType:'json'
+        }).done(function(data){
+            console.log(data);
+        }).fail(function(jqXHR,textStatus, err){
+            console.log(textStatus);
+        });
+    });
+
+    $( ".san_show_detail" ).on( "click", function() {
+    $('ul#san_listss').empty();
+    $('ul#san_listsss').empty();
+    var model_id = $(this).attr('id');
+    var idsss = $(this).data('id').split('san@#');
+    if(!idsss[0]){
+      var booking = 'nhi';
+    }else{
+      var booking = 'hai';
+    }
+    if(!idsss[1]){
+      var checkins = 'nhi';
+    }else{
+      var checkins = 'hai';
+    } 
+      $.ajax({
+            type:'POST',
+            url:'http://work4brands.com:4200/admin/get_models',
+            data: { booking_model_ids:idsss[0],checkins_model_ids:idsss[1]},
+            dataType:'json'
+        }).done(function(data){
+         var bookings_items = '';
+         var checkins_items = '';
+         $.each(data.bookings, function(i, item) {
+                bookings_items = bookings_items+'<li class="list-group-item"><a href="http://work4brands.com:4200/admin/model_detail?model_id=' + item._id + '" target="_blank">' + item.first_name + '</a></li>';
+         }); 
+         $.each(data.checkins, function(i, item) {
+                checkins_items = checkins_items+'<li class="list-group-item"><a href="http://work4brands.com:4200/admin/model_detail?model_id=' + item._id + '" target="_blank">' + item.first_name + '</a></li>';
+         }); 
+         if(booking =='hai'){
+            $('ul#san_listss').append(bookings_items);
+         }else{
+            $('ul#san_listss').append('No Bookings!');
+         }
+         if(checkins =='hai'){
+            $('ul#san_listsss').append(checkins_items);
+         }else {
+            $('ul#san_listsss').append('No Checkins!');
+         }
+         $(model_id).modal();
+        }).fail(function(jqXHR,textStatus, err){
+            console.log(textStatus);
+            $('ul#san_listss').append('No Bookings!');
+            $('ul#san_listsss').append('No Checkins!');
+        });
+    });
+  });
+    $(function()
+  {
+      $(document).on('click', '.btn-add', function(e)
+      {  
+          e.preventDefault();
+
+          var controlForm = $('.controls .formmm:first'),
+              currentEntry = $(this).parents('.entry:first'),
+              newEntry = $(currentEntry.clone()).appendTo(controlForm);
+
+          newEntry.find('input').val('');
+          controlForm.find('.entry:not(:last) .btn-add')
+              .removeClass('btn-add').addClass('btn-remove')
+              .removeClass('btn-success').addClass('btn-danger')
+              .html('<span class="glyphicon glyphicon-minus"></span>');
+      }).on('click', '.btn-remove', function(e)
+      {
+      $(this).parents('.entry:first').remove();
+
+      e.preventDefault();
+      return false;
+    });
+
+    $( "#change_business" ).on( "change", function(e) {
+    e.preventDefault();
+      $.ajax({
+            type:'GET',
+            url:'http://work4brands.com:4200/events/venues',
+            data: { business_id:$(this).val()},
+            dataType:'json'
+        }).done(function(data){
+        var html = '<option value="">Select Venues</option>';
+        $.each(data, function( index, value ) {
+          html = html+'<option value="'+value._id+'">'+value.venue_name+'</option>';
+        });
+        $("#venue_info").html(html);
+            console.log(data);
+        }).fail(function(jqXHR,textStatus, err){
+            console.log(textStatus);
+        });
+    });
+    $( "#venue_info" ).on( "change", function(e) {
+        var venue_name = $(this).find("option:selected").text(); 
+        var el = '<input type="hidden" id="venue_name" class="venue_name" name="name" value="'+venue_name+'"></input>';
+        if($('#venue_name').hasClass('venue_name')){
+            $('#venue_name').val(venue_name);
+        }else{
+          $('form#add_offer_form').append(el);
+        }
+    });
+    var mandatory = ['start_date','change_business','venue_info','change_category','activity_name','start_time','end_time','dress_code'];
+    $(document).on('submit','form#add_offer_form',function(){
+        var err = 0
+        $.each(mandatory, function( index, value ) {
+          if(!$('#'+value).val()){
+            err = 1;
+          }
+        });
+        if(err ==0){
+          return true;
+        }else{
+         alert('Some Fields Missing');
+         return false;
+        }
+    });
+  });
+</script>

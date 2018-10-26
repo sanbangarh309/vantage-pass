@@ -1,0 +1,11 @@
+<% include ./partials/head %>
+<% include ./partials/header %>
+<% include ./partials/footer %>
+ <script>
+            $(document).ready(function() {
+                $('#tab_venues').DataTable( {
+                  "lengthMenu": [6, 10, 25, 50, 100],
+                  "pageLength": 6
+                } );
+            } );
+            </script>

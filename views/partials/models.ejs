@@ -1,0 +1,409 @@
+<% include ./head %>
+<style>
+#appl_dataa td {
+  width: 200px;
+  height: 100%
+}
+#appl_dataa td a {
+  display: block;
+  height:100%;
+  width:100%;
+}
+</style>
+<div id="add_model" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add Model</h4>
+      </div>
+      <div class="modal-body">
+        <form action="/models/register" method="post" enctype="multipart/form-data" id="add_model_form">
+        <div class="row">
+        <input type="hidden" name="add_from_admin" value="1">
+            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">First Name </label>
+                                                   <input type="text" class="form-control" name="first_name" id="first_name" value="">
+                                                </div>
+                                            </div>
+                        <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Last Name</label>
+                                                   <input type="text" class="form-control" name="last_name" id="last_name" value="">
+                                                </div>
+                                            </div>  
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Email</label>
+                                                   <input type="text" class="form-control" name="email" id="email" value="">
+                                                </div>
+                                            </div>         
+                                                  
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Dob </label>
+                                                   <input type="text" class="datepicker form-control" name="dob" id="dob" value="">
+                                                </div>
+                                            </div>
+                        <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Current Agency</label>
+                                                   <input type="text" class="form-control" name="current_agency" id="current_agency" value="">
+                                                </div>
+                                            </div>  
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Mother Agency</label>
+                                                   <input type="text" class="form-control" name="mother_agency" value="">
+                                                </div>
+                                            </div>         
+                                                  
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Instagram Username </label>
+                                                   <input type="text" class="form-control" name="instagram_username" value="" id="instagram_username">
+                                                </div>
+                                            </div>
+                        <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Height</label>
+                                                   <input type="text" class="form-control" name="height" id="height" value="">
+                                                </div>
+                                            </div>  
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Bust</label>
+                                                   <input type="text" class="form-control" name="bust" value="">
+                                                </div>
+                                            </div>         
+                                                  
+        </div>
+                                         <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Waist</label>
+                                                   <input type="text" class=" form-control" name="waist" value="">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Hips</label>
+                                                    <input type="text" class="form-control" name="hips" value="">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Shoes</label>
+                                                    <input type="text" class="form-control" name="shoes" value="">
+                                                </div>
+                                            </div>
+                                        
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Eyes</label>
+                                                   <input type="text" class=" form-control" name="eyes" value="">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Hair</label>
+                                                    <input type="text" class="form-control" name="hair" value="">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <input type="file" class="form-control" name="profile_image" id="profile_image" value="">
+                                                </div>
+                                            </div>
+                                        </div>
+            <button type="submit" class="btn btn-primary pull-left">Save Model</button>                                
+        </form>
+    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                    <%if (added) { %>
+<h2 class="well abcd" style="text-align: center;"><div class="alert alert-success">
+                            <button type="button" style="background: transparent;float: right;" class="closes" data-dismiss="alert" onclick="jQuery('.abcd').css('display', 'none');">&times;</button>
+                            Model Added Successfully.
+                        </div></h2>
+<% } %>
+<%if (update) { %>
+<h2 class="well abcd" style="text-align: center;"><div class="alert alert-success">
+                            <button type="button" style="background: transparent;float: right;" class="closes" data-dismiss="alert" onclick="jQuery('.abcd').css('display', 'none');">&times;</button>
+                            Model Updated Successfully.
+                        </div></h2>
+<% } %>
+                        <div class="col-md-12">
+                            <div class="card sannnn">
+                                <div class="card-header" data-background-color="purple">
+                                    <h4 class="title">Models</h4>
+                                    <p class="category"></p>
+                                    <div class="sandeep_ban"><h4 class="filter">Filter</h4> &nbsp&nbsp<select class="selectpicker filter_result">
+                                      <option value="all">Select To filter</option>
+                                      <option value="approved">Approved</option>
+                                      <option value="blocked">Blocked</option>
+                                    </select>
+                                    </div>
+                                    <div style="float:right;margin-top: -53px;margin-right: 44px;"><button type="submit" data-toggle="modal" data-target="#add_model" class="btn btn-info btn-lg">Add Model</button></div>
+                                </div>
+                                <div class="card-content table-responsive">
+                                    <table class="table" id="appl_dataa">
+                                        <thead class="text-primary">
+                                            <th>Image</th>
+                                            <th>Name</th>
+                                            <th>Current Agency</th>
+                                            <th>Join Date</th>
+                                            <th>Email</th>
+                                            <th>Actions</th>
+                                        </thead>
+                                        <tbody>
+                                         <% models.forEach(function(models) { %>
+                                            <tr>
+                                            	<td><a href="/admin/model_detail?model_id=<%= models._id %>" target="_blank"><img src="<%= models.profile_image %>" class="img-rounded" style="width: 78%;" alt=""></a></td>
+                                                <td><a href="/admin/model_detail?model_id=<%= models._id %>" target="_blank"><%= models.last_name %></a></td>
+                                                <td><%= models.current_agency %></td>
+                                                <td><%= models.dob %></td>
+                                                <td><%= models.email %></td>
+                                                <td>
+                                                <form action="/admin/approve" method="post">
+                                                 <input type="hidden" name="model_id" value="<%= models._id %>">
+                                                 <input type="hidden" name="status" <%if (models.status=='1') { %> value="0" <% }else{ %> value="1" <% } %> >
+                                                    
+<%if (models.status!='1') { %> 
+                                                    <button type="submit" class="btn btn-warning btn-sm">Approve</button>
+                                                    <% } %>
+                                                    <%if (models.status=='1') { %>
+                                                    <button type="submit" class="btn btn-success btn-sm">Approved</button>
+                                                    <% } %>
+                                                    </form>
+                                                    <form action="/admin/block" method="post">
+                                                    <input type="hidden" name="model_id" value="<%= models._id %>">
+                                                 <input type="hidden" name="block" <%if (models.block=='1') { %> value="0" <% }else{ %> value="1" <% } %> >
+                                                  <input type="hidden" name="status" value="0">
+                                                    <button type="submit" class="btn btn-danger btn-sm"><%if (models.block!='1') { %> Block <% }else{ %>Unblock <% } %> </button>
+                                                    </form>
+                                                    <form action="/admin/delete_model" method="post">
+                                                    <input type="hidden" name="model_id" value="<%= models._id %>">
+                                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                                    </form><button type="button" data-toggle="modal" data-target="#edit_model<%= models._id %>" class="btn btn-info btn-sm">Edit</button>
+                                                    </td>
+                                            </tr>
+<div id="edit_model<%= models._id %>" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit Model</h4>
+      </div>
+      <div class="modal-body">
+        <form action="/admin/mupdate" method="post" enctype="multipart/form-data">
+        <div class="row">
+        <input type="hidden" name="user_id" value="<%= models._id %>">
+        <input type="hidden" name="old_image" value="<%= models.profile_image %>">
+            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">First Name </label>
+                                                   <input type="text" class="form-control" name="first_name" value="<%= models.first_name %>">
+                                                </div>
+                                            </div>
+                        <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Last Name</label>
+                                                   <input type="text" class="form-control" name="last_name" value="<%= models.last_name %>">
+                                                </div>
+                                            </div>  
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Email</label>
+                                                   <input type="text" class="form-control" name="email" value="<%= models.email %>">
+                                                </div>
+                                            </div>         
+                                                  
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Dob </label>
+                                                   <input type="text" class="datepicker form-control" name="dob" value="<%= models.dob %>">
+                                                </div>
+                                            </div>
+                        <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Current Agency</label>
+                                                   <input type="text" class="form-control" name="current_agency" value="<%= models.current_agency %>">
+                                                </div>
+                                            </div>  
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Mother Agency</label>
+                                                   <input type="text" class="form-control" name="mother_agency" value="<%= models.mother_agency %>">
+                                                </div>
+                                            </div>         
+                                                  
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Instagram Username </label>
+                                                   <input type="text" class="form-control" name="instagram_username" value="<%= models.instagram_username %>">
+                                                </div>
+                                            </div>
+                        <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Height</label>
+                                                   <input type="text" class="form-control" name="height" value="<%= models.height %>">
+                                                </div>
+                                            </div>  
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Bust</label>
+                                                   <input type="text" class="form-control" name="bust" value="<%= models.bust %>">
+                                                </div>
+                                            </div>         
+                                                  
+        </div>
+                                         <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Waist</label>
+                                                   <input type="text" class=" form-control" name="waist" value="<%= models.waist %>">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Hips</label>
+                                                    <input type="text" class="form-control" name="hips" value="<%= models.hips %>">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Shoes</label>
+                                                    <input type="text" class="form-control" name="shoes" value="<%= models.shoes %>">
+                                                </div>
+                                            </div>
+                                        
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Eyes</label>
+                                                   <input type="text" class=" form-control" name="eyes" value="<%= models.eyes %>">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Hair</label>
+                                                    <input type="text" class="form-control" name="hair" value="<%= models.hair %>">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <input type="file" class="form-control" name="profile_image" value="">
+                                                </div>
+                                            </div>
+                                        </div>
+            <button type="submit" class="btn btn-primary pull-left">Save Model</button>                                
+        </form>
+    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+                                         <% }); %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           <% include ./footer %>
+<script>
+  $(document).ready(function() {
+   $('#appl_dataa').DataTable( {
+      "lengthMenu": [6, 10, 25, 50, 100],
+      "pageLength": 6,
+      "order": []
+    } );
+    $( ".datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
+    $( ".filter_result" ).on( "change", function() {
+    $("#san_loading").show();
+    var types = $(this).val();
+    if(types == 'all'){
+    	location.reload();
+    }else{
+    	if(types){
+	        $.ajax({
+	                type:'POST',
+	                url:'http://work4brands.com:4200/admin/filter_result',
+	                data: { type:types},
+	                dataType:'json'
+	            }).done(function(data){
+	            var html = '<table class="table" id="appl_dataa"><thead class="text-primary"><tr><th>Name</th><th>Current Agency</th><th>Height</th><th>Email</th><th>Actions</th></tr></thead><tbody>';
+	                $.each(data, function( index, value ) {
+	                console.log(index);
+	                html = html+'<tr><td><a href="/admin/model_detail?model_id='+value._id+'">'+value.first_name+'</a></td><td>'+value.current_agency+'</td><td>'+value.dob+'</td><td>'+value.email+'</td><td>';
+	                if(value.status ==1){
+	                    html = html+'<form action="/admin/approve" method="post"><input name="model_id" value="'+value._id+'" type="hidden"><input name="status" value="0" type="hidden"><button type="submit" class="btn btn-success btn-sm">Approved</button></form><form action="/admin/block"<input name="status" value="1" type="hidden"><input type="hidden" name="block" value="1"><button type="submit" class="btn btn-danger btn-sm"> block  </button></form>';
+	                }
+	                if(value.block ==1){
+	                   html = html+'<form action="/admin/approve" method="post"><input name="model_id" value="'+value._id+'" type="hidden"><input name="status" value="1" type="hidden"><button type="submit" class="btn btn-warning btn-sm">Approve</button></form><form action="/admin/block"<input name="status" value="0" type="hidden"><input type="hidden" name="block" value="0"><button type="submit" class="btn btn-danger btn-sm"> Unblock  </button></form>'; 
+	                }
+	                html = html+'<form action="/admin/delete_model" method="post"><input name="model_id" value="'+value._id+'" type="hidden"><button type="submit" class="btn btn-danger btn-sm">Delete</button></form></td></tr>';
+	                });
+	                html = html+' </table>';
+	                $(".sannnn .card-content").html(html);
+	                $("#san_loading").hide();
+	                console.log(html);
+	            }).fail(function(jqXHR,textStatus, err){
+	                console.log(textStatus);
+	            });
+	    }
+    }         
+    });
+    var mandatory = ['first_name','last_name','email','dob','current_agency','instagram_username','height','profile_image'];
+    $(document).on('submit','form#add_model_form',function(){
+        var err = 0
+        $.each(mandatory, function( index, value ) {
+          if(!$('#'+value).val()){
+            err = 1;
+          }
+        });
+        if(err ==0){
+          return true;
+        }else{
+         alert('Some Fields Missing');
+         return false;
+        }
+    });
+  });
+</script>

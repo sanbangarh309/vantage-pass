@@ -1,0 +1,256 @@
+<% include ./head %>
+<link rel="stylesheet" href="../assets/css/san.css">
+<style>
+#san_data_table td {
+  width: 200px;
+  height: 100%
+}
+#san_data_table td a {
+  height:100%;
+  width:100%;
+}
+.san_show_details{
+    float: left;width: 40%;padding: 5px;   
+}
+.calc_custom_css{
+    overflow: visible !important;
+}
+#scheduler_here .dhx_cal_navline, .dhx_cal_header, .dhx_cal_data{
+   width: 100% !important; 
+}
+.dhx_cal_data tbody tr td{
+    width: 175px; !important;   
+}
+.dhx_scale_bar{
+    width: 172px; !important;   
+}
+</style>
+
+<div id="san_calendar" class="modal fade" role="dialog">
+  <div class="modal-dialog" style="width:70%">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Offer Calendar</h4>
+      </div>
+      <div class="modal-body" style="min-height: 400px;">
+        <div id="scheduler_here" class="dhx_cal_container calc_custom_css" style='width:100%; height:100%;'>
+        <div class="dhx_cal_navline">
+            <div class="dhx_cal_prev_button">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-chevron-left" aria-hidden="true"></i>
+</div>
+            <div class="dhx_cal_next_button">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i>
+</div>
+            <div class="dhx_cal_today_button"></div>
+            <div class="dhx_cal_date" style="color:green"></div>
+        </div>
+        <div class="dhx_cal_header">
+        </div>
+        <div class="dhx_cal_data">
+        </div>
+    </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<div id="add_venue" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add Venue</h4>
+      </div>
+      <div class="modal-body">
+        <form action="/events/add_venue" method="post" id="offer_submit_form" enctype="multipart/form-data">
+        <div class="row">
+        <input type="hidden" name="add_from_admin" value="1">
+            <div class="col-md-6">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Venue Name </label>
+                                                   <input type="text" class="form-control" required name="venue_name" id="venue_name" value="">
+                                                </div>
+                                            </div>
+                        <div class="col-md-6">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Address</label>
+                                                   <input type="text" class="form-control address" required name="location" value="" id="venue_address">
+                                                </div>
+                                            </div>           
+                                                  
+        </div>
+               <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group label-floating">
+                                                    <select class="form-control" name="business_id" required id="change_business">
+                                                     <option value="">Select Business User</option>
+                                                     <% users.forEach(function(user) { %>
+                                                    <option value="<%= user._id %>"><%= user.first_name %></option>
+                                                    <% }); %>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                     <select class="form-control" name="country" id="san_sel_cntry" required>
+              <option value="">Select Country</option>
+            <% countries.forEach(function(countrieslist) { %>
+                                                    <option value="<%= countrieslist.name %>"><%= countrieslist.name %></option>
+                                                    <% }); %>
+                                                  </select>
+                                                </div>
+                                            </div>
+                        <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label citiesss">City</label>
+                                                  <select class="form-control san_cities" id="san_cities" data-id="" required name="city">
+                                                  <option value="">Select Cities</option>
+                                                </select>
+                                                </div>
+                                            </div>  
+                                        </div>
+                                         <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Phone</label>
+                                                   <input type="text" class="form-control" name="phone" value="">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Website</label>
+                                                    <input type="text" class="form-control" name="website" value="">
+                                                </div>
+                                            </div>
+                                           <div class="col-md-4">
+                                               <div class="form-group label-floating">
+                                                    <label class="control-label">Venue Image</label>
+                                                    <input type="file" name="venue_image" id="venue_image" accept="image/*">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="form-group label-floating">
+                                                    <label class="control-label">Details</label>
+                                                    <textarea rows="4" class="form-control" name="description" cols="50"></textarea> 
+                                            </div>
+                                        </div>   
+                                        </div>
+            <button type="submit" id="submit_form" class="btn btn-primary pull-left">Save Venue</button>                                
+        </form>
+    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card card-plain">
+                                <div class="card-header" data-background-color="purple">
+                                    <h4 class="title">Venues</h4>
+                                    <p class="category"><div style="float:right;margin-top: -49px;"><button type="submit" data-toggle="modal" data-target="#add_venue" class="btn btn-info btn-sm">Add Venue</button></div></p>
+                                </div>
+                                <div class="card-content table-responsive">
+                                    <table class="table table-hover" id="san_data_table">
+                                        <thead class="text-warning">
+                                            <th>Image</th>
+                                            <th>Name</th>
+                                            <th>City</th>
+                                            <th>No of Offers</th>
+                                            <th>No of Reservations</th>
+                                            <th>No of Checkins</th>
+                                            <th>No of Cancellation</th>
+                                            <th>Country</th>
+                                            <th>Actions</th>
+                                        </thead>
+                                        <tbody>
+                                        <% venues.forEach(function(venues) { %>
+                                        <tr>
+                                                <td> <img src="<%= venues.venue_image %>" class="img-rounded" style="width: 54%;" alt=""></td>
+                                                <td><%= venues.venue_name %></td>
+                                                <td><%= venues.city %></td>
+                                                <td><%= venues.no_offers %></td>
+                                                <td><%= venues.reservation_counts %></td>
+                                                <td><%= venues.checkins_counts %></td>
+                                                <td><%= venues.cancellation_counts %></td>
+                                                <td><%= venues.country %></td>
+                                                <td>
+                                                <a class="btn btn-success btn-sm show_calendar" data-id="<%= venues._id %>" style="float: left;width: 50%;padding: 5px;" target="_blank" href="/admin/calc?venue_id=<%= venues._id %>">View Offer</a>
+                                                <a class="btn san_show_details btn-info btn-sm" style="width: 50%;padding: 5px;" target="_blank" href="/admin/venue_detail?venue_id=<%= venues._id %>">View Detail</a><a class="btn san_delete_venue btn-danger btn-sm" style="width: 50%;padding: 5px;" href="/admin/delete_venue?venue_id=<%= venues._id %>">Delete</a></td>
+                                            </tr>
+    <% }); %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<% include ./footer %>
+<script src="../assets/js/san.js" ></script>
+<script>
+    $(function(){
+        $( "#san_sel_cntry" ).on( "change", function(e) {
+          e.preventDefault();
+          $.ajax({
+                type:'POST',
+                url:'http://work4brands.com:4200/admin/change_cities',
+                data: { country:$(this).val()},
+                dataType:'json'
+            }).done(function(data){
+            var html = '<option value="">Select Cities</option>';
+            $.each(data, function( index, value ) {
+              html = html+'<option value="'+value+'">'+value+'</option>';
+            });
+            //$(".citiesss").after(html);
+            $(".san_cities").html(html);
+                console.log(data);
+            }).fail(function(jqXHR,textStatus, err){
+                console.log(textStatus);
+            });
+        });
+        var mandatory = ['venue_name','venue_address','change_business','san_sel_cntry','san_cities','venue_image'];
+        $(document).on('submit','form#offer_submit_form',function(){
+            var err = 0
+            $.each(mandatory, function( index, value ) {
+              if(!$('#'+value).val()){
+                err = 1;
+              }
+            });
+            if(err ==0){
+              return true;
+            }else{
+             alert('Some Fields Missing');
+             return false;
+            }
+        });
+    });
+    function showcalc(id) {
+            scheduler.init('scheduler_here',new Date(),"month");
+            scheduler.config.xml_date="%Y-%m-%d %H:%i";
+            scheduler.templates.xml_date = function(value){ return new Date(value); };
+            scheduler.load("/data?id="+id, "json");
+              setTimeout(function(){
+                $('#san_loading').hide();
+                $('#san_calendar').modal();
+              }, 1000);
+    }
+</script>
